@@ -3,8 +3,6 @@ name: Deploy Math Game to GitHub Pages
 on:
   push:
     branches: ["main"]
-
-  # Allow manual deployment from the Actions tab
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN
@@ -33,6 +31,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Clean build directory
+        run: rm -rf dist || true
 
       - name: Build project
         run: npm run build
