@@ -1,20 +1,85 @@
-# THE-MATH-GAME
- 👉🏻 It is a simple multiplication game to test how well we are at arithmetic.
- 
- >**[Try The Web Application](https://amey-thakur.github.io/THE-MATH-GAME)**
+# Kids Math Game
+
+A fun and interactive math game built with React and TypeScript, designed to help children practice their math skills!
+
+## About the Game
+
+This educational game helps children learn and practice mathematics in an engaging way. Built with modern web technologies to ensure a smooth and responsive experience.
+
+## Tech Stack
+
+- [React](https://reactjs.org/) - For building the user interface
+- [TypeScript](https://www.typescriptlang.org/) - For type safety and better code quality
+- [Vite](https://vitejs.dev/) - For fast development and building
+
+## Getting Started
+
+1. Clone the repository
+2. Install the dependencies:
+
+```bash
+npm install
+```
+
+3. Start the game in development mode:
+
+```bash
+npm run dev
+```
+
+## Features
+
+- Interactive math exercises
+- Kid-friendly interface
+- Instant feedback on answers
+- Progressive difficulty levels
+
+## Development
+
+### Running the Game Locally
+
+```bash
+npm run dev
+```
+
+### Building for Production
+
+```bash
+npm run build
+npm run preview  # To preview the production build
+```
+
+### ESLint Configuration
+
+The project uses ESLint with TypeScript for code quality. To enable stricter type checking:
+
+```js
+export default tseslint.config({
+  extends: [
+    ...tseslint.configs.recommendedTypeChecked,
+    ...tseslint.configs.strictTypeChecked,
+  ],
+  languageOptions: {
+    parserOptions: {
+      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+});
+```
+
+## Contributing
+
+Contributions are welcome! Whether it's adding new math problems, improving the UI, or fixing bugs, feel free to:
+
+1. Fork the repository
+2. Create your feature branch
+3. Submit a pull request
+
+## License
+
+MIT
 
 ---
 
- >**WEB APPLICATION - https://amey-thakur.github.io/THE-MATH-GAME**
-
-![image](https://user-images.githubusercontent.com/54937357/154539531-9b586eed-c2d0-44f4-8e8d-a0c00fd66b95.png)
-
-![image](https://user-images.githubusercontent.com/54937357/154540683-a58dad77-dabd-4bbe-bab4-59af34f2e9d1.png)
-
-![image](https://user-images.githubusercontent.com/54937357/154540932-927369bf-1e9c-4419-8dd1-c734dae04317.png)
-
----
-
-<p align="center"> <b> 👉🏻 Created The Math Game 👈🏻 <b> </p>
- 
-<p align="center"><a href='https://github.com/Amey-Thakur/THE-MATH-GAME', style='color: greenyellow;'> ✌🏻 Back To Repository ✌🏻</p>
+Made with ❤️ for young mathematicians
