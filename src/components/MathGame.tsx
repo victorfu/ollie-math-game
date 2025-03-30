@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
 import "./MathGame.css";
+import chocolatechip from "./chocolatechip.gif";
+import oreo from "./oreo.gif";
+import redvelvet from "./redvelvet.gif";
+import crab from "./crab.gif";
+import firefox from "./FIREFOX.gif";
 
 interface BoxProps {
   value: number;
@@ -14,6 +19,8 @@ const Box: React.FC<BoxProps> = ({ value, onClick }) => (
 
 type GameMode = "multiplication" | "division" | "hybrid";
 
+const gifs = [crab, redvelvet, oreo, firefox, chocolatechip];
+
 const MathGame: React.FC = () => {
   const [playing, setPlaying] = useState(false);
   const [score, setScore] = useState(0);
@@ -25,6 +32,12 @@ const MathGame: React.FC = () => {
   const [showWrong, setShowWrong] = useState(false);
   const [showGameOver, setShowGameOver] = useState(false);
   const [gameMode, setGameMode] = useState<GameMode>("hybrid");
+  const [endGameGif, setEndGameGif] = useState<string>("");
+
+  useEffect(() => {
+    const randomGif = gifs[Math.floor(Math.random() * gifs.length)];
+    setEndGameGif(randomGif);
+  }, []);
 
   const generateQA = () => {
     // Determine if multiplication based on game mode
@@ -81,6 +94,7 @@ const MathGame: React.FC = () => {
       setScore(0);
       setTimeRemaining(60);
       setShowGameOver(false);
+      setEndGameGif("");
       generateQA();
     }
   };
@@ -107,6 +121,8 @@ const MathGame: React.FC = () => {
           if (prev <= 1) {
             setPlaying(false);
             setShowGameOver(true);
+            const randomGif = gifs[Math.floor(Math.random() * gifs.length)];
+            setEndGameGif(randomGif);
             clearInterval(timer);
             return 0;
           }
@@ -193,6 +209,18 @@ const MathGame: React.FC = () => {
           <div id="gameOver">
             <p>Game Over!</p>
             <p>Your score is: {score}</p>
+            {endGameGif && (
+              <img
+                src={endGameGif}
+                alt="celebration gif"
+                style={{
+                  maxWidth: "200px",
+                  marginTop: "20px",
+                  borderRadius: "8px",
+                  position: "relative",
+                }}
+              />
+            )}
           </div>
         )}
       </div>
