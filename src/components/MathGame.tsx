@@ -24,11 +24,24 @@ const MathGame: React.FC = () => {
   const [showGameOver, setShowGameOver] = useState(false);
 
   const generateQA = () => {
-    const x = 1 + Math.round(9 * Math.random());
-    const y = 1 + Math.round(9 * Math.random());
-    const correct = x * y;
-    setCorrectAnswer(correct);
-    setQuestion(`${x} x ${y}`);
+    // Randomly choose between multiplication and division
+    const isMultiplication = Math.random() < 0.5;
+
+    let correct: number;
+    if (isMultiplication) {
+      const x = 1 + Math.round(9 * Math.random());
+      const y = 1 + Math.round(9 * Math.random());
+      correct = x * y;
+      setCorrectAnswer(correct);
+      setQuestion(`${x} × ${y}`); // Using × symbol instead of x
+    } else {
+      // For division, generate numbers that divide evenly
+      const y = 1 + Math.round(9 * Math.random()); // divisor
+      correct = 1 + Math.round(9 * Math.random()); // quotient
+      const x = y * correct; // dividend
+      setCorrectAnswer(correct);
+      setQuestion(`${x} ÷ ${y}`);
+    }
 
     const correctPosition = 1 + Math.round(3 * Math.random());
     const newBoxes = new Array(4).fill(0);
@@ -38,10 +51,18 @@ const MathGame: React.FC = () => {
       if (i !== correctPosition - 1) {
         let wrongAnswer;
         do {
-          wrongAnswer =
-            (1 + Math.round(9 * Math.random())) *
-            (1 + Math.round(9 * Math.random()));
-        } while (newBoxes.includes(wrongAnswer));
+          if (isMultiplication) {
+            // For multiplication: generate answers up to 81 (9×9)
+            wrongAnswer = 1 + Math.round(Math.random() * 81);
+          } else {
+            // For division: generate answers close to the correct answer
+            // but still within reasonable range (±3 from correct answer)
+            wrongAnswer = correct + Math.floor(Math.random() * 7) - 3;
+            // Ensure the wrong answer is positive
+            if (wrongAnswer <= 0)
+              wrongAnswer = 1 + Math.round(Math.random() * 3);
+          }
+        } while (newBoxes.includes(wrongAnswer) || wrongAnswer === correct);
         newBoxes[i] = wrongAnswer;
       }
     }
