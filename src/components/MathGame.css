@@ -199,3 +199,21 @@ h1 {
     z-index: 2;
   }
 }
+
+.mode-selector {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.mode-selector label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.mode-selector input[type="radio"] {
+  cursor: pointer;
+}
