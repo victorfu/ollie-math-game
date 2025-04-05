@@ -31,8 +31,15 @@ const MathGame: React.FC = () => {
   const [showCorrect, setShowCorrect] = useState(false);
   const [showWrong, setShowWrong] = useState(false);
   const [showGameOver, setShowGameOver] = useState(false);
-  const [gameMode, setGameMode] = useState<GameMode>("hybrid");
+  const [gameMode, setGameMode] = useState<GameMode>(() => {
+    const savedMode = localStorage.getItem("mathGameMode");
+    return (savedMode as GameMode) || "hybrid";
+  });
   const [endGameGif, setEndGameGif] = useState<string>("");
+
+  useEffect(() => {
+    localStorage.setItem("mathGameMode", gameMode);
+  }, [gameMode]);
 
   useEffect(() => {
     const randomGif = gifs[Math.floor(Math.random() * gifs.length)];
