@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import "./MathGame.css";
-import chocolatechip from "./chocolatechip.gif";
-import oreo from "./oreo.gif";
-import redvelvet from "./redvelvet.gif";
-import crab from "./crab.gif";
-import firefox from "./FIREFOX.gif";
+import chocolatechip from "./images/chocolatechip.gif";
+import oreo from "./images/oreo.gif";
+import redvelvet from "./images/redvelvet.gif";
+import crab from "./images/crab.gif";
+import firefox from "./images/FIREFOX.gif";
 
 interface BoxProps {
   value: number;
@@ -12,7 +12,7 @@ interface BoxProps {
 }
 
 const Box: React.FC<BoxProps> = ({ value, onClick }) => (
-  <div className="box" onClick={onClick}>
+  <div className="box" onClick={onClick} style={{ userSelect: "none" }}>
     {value}
   </div>
 );
@@ -208,8 +208,8 @@ const MathGame: React.FC = () => {
         </div>
         {playing && (
           <div id="timeremaining">
-            Time remaining: <span id="timeremainingvalue">{timeRemaining}</span>{" "}
-            sec
+            <div>Time remaining:</div>
+            <div id="timeremainingvalue">{timeRemaining} sec</div>
           </div>
         )}
         {showGameOver && (
