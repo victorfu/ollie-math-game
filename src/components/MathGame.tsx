@@ -17,7 +17,12 @@ const Box: React.FC<BoxProps> = ({ value, onClick }) => (
   </div>
 );
 
-type GameMode = "multiplication" | "division" | "hybrid";
+type GameMode =
+  | "multiplication"
+  | "division"
+  | "addition"
+  | "subtraction"
+  | "hybrid";
 
 const gifs = [crab, redvelvet, oreo, firefox, chocolatechip];
 
@@ -47,24 +52,46 @@ const MathGame: React.FC = () => {
   }, []);
 
   const generateQA = () => {
-    // Determine if multiplication based on game mode
-    const isMultiplication =
-      gameMode === "multiplication" ||
-      (gameMode === "hybrid" && Math.random() < 0.5);
+    // Determine operation based on game mode
+    let operation: string;
+    if (gameMode === "hybrid") {
+      const operations = [
+        "multiplication",
+        "division",
+        "addition",
+        "subtraction",
+      ];
+      operation = operations[Math.floor(Math.random() * operations.length)];
+    } else {
+      operation = gameMode;
+    }
 
     let correct: number;
-    if (isMultiplication) {
+    if (operation === "multiplication") {
       const x = 1 + Math.round(9 * Math.random());
       const y = 1 + Math.round(9 * Math.random());
       correct = x * y;
       setCorrectAnswer(correct);
       setQuestion(`${x} × ${y}`);
-    } else {
+    } else if (operation === "division") {
       const y = 1 + Math.round(9 * Math.random());
       correct = 1 + Math.round(9 * Math.random());
       const x = y * correct;
       setCorrectAnswer(correct);
       setQuestion(`${x} ÷ ${y}`);
+    } else if (operation === "addition") {
+      const x = 1 + Math.round(99 * Math.random());
+      const y = 1 + Math.round(99 * Math.random());
+      correct = x + y;
+      setCorrectAnswer(correct);
+      setQuestion(`${x} + ${y}`);
+    } else {
+      // subtraction
+      const x = 1 + Math.round(99 * Math.random());
+      const y = 1 + Math.round(x * Math.random()); // Ensure y is less than x to avoid negative results
+      correct = x - y;
+      setCorrectAnswer(correct);
+      setQuestion(`${x} - ${y}`);
     }
 
     const correctPosition = 1 + Math.round(3 * Math.random());
@@ -75,16 +102,21 @@ const MathGame: React.FC = () => {
       if (i !== correctPosition - 1) {
         let wrongAnswer;
         do {
-          if (isMultiplication) {
-            // For multiplication: generate answers up to 81 (9×9)
+          if (operation === "multiplication") {
             wrongAnswer = 1 + Math.round(Math.random() * 81);
-          } else {
-            // For division: generate answers close to the correct answer
-            // but still within reasonable range (±3 from correct answer)
+          } else if (operation === "division") {
             wrongAnswer = correct + Math.floor(Math.random() * 7) - 3;
-            // Ensure the wrong answer is positive
             if (wrongAnswer <= 0)
               wrongAnswer = 1 + Math.round(Math.random() * 3);
+          } else if (operation === "addition") {
+            wrongAnswer = correct + Math.floor(Math.random() * 20) - 10;
+            if (wrongAnswer <= 0)
+              wrongAnswer = 1 + Math.round(Math.random() * 10);
+          } else {
+            // subtraction
+            wrongAnswer = correct + Math.floor(Math.random() * 20) - 10;
+            if (wrongAnswer <= 0)
+              wrongAnswer = 1 + Math.round(Math.random() * 10);
           }
         } while (newBoxes.includes(wrongAnswer) || wrongAnswer === correct);
         newBoxes[i] = wrongAnswer;
@@ -174,6 +206,24 @@ const MathGame: React.FC = () => {
             onChange={(e) => setGameMode(e.target.value as GameMode)}
           />
           Division Only
+        </label>
+        <label>
+          <input
+            type="radio"
+            value="addition"
+            checked={gameMode === "addition"}
+            onChange={(e) => setGameMode(e.target.value as GameMode)}
+          />
+          Addition Only
+        </label>
+        <label>
+          <input
+            type="radio"
+            value="subtraction"
+            checked={gameMode === "subtraction"}
+            onChange={(e) => setGameMode(e.target.value as GameMode)}
+          />
+          Subtraction Only
         </label>
         <label>
           <input
