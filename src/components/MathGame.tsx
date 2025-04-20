@@ -88,7 +88,7 @@ const MathGame: React.FC = () => {
     } else {
       // subtraction
       const x = 1 + Math.round(9 * Math.random());
-      const y = 1 + Math.round(x * Math.random());
+      const y = 1 + Math.round((x - 1) * Math.random());
       correct = x - y;
       setCorrectAnswer(correct);
       setQuestion(`${x} - ${y}`);
