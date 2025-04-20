@@ -80,15 +80,15 @@ const MathGame: React.FC = () => {
       setCorrectAnswer(correct);
       setQuestion(`${x} ÷ ${y}`);
     } else if (operation === "addition") {
-      const x = 1 + Math.round(99 * Math.random());
-      const y = 1 + Math.round(99 * Math.random());
+      const x = 1 + Math.round(9 * Math.random());
+      const y = 1 + Math.round(9 * Math.random());
       correct = x + y;
       setCorrectAnswer(correct);
       setQuestion(`${x} + ${y}`);
     } else {
       // subtraction
-      const x = 1 + Math.round(99 * Math.random());
-      const y = 1 + Math.round(x * Math.random()); // Ensure y is less than x to avoid negative results
+      const x = 1 + Math.round(9 * Math.random());
+      const y = 1 + Math.round(x * Math.random());
       correct = x - y;
       setCorrectAnswer(correct);
       setQuestion(`${x} - ${y}`);
